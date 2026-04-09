@@ -32,7 +32,6 @@ public class Activity3Application {
             productRepository.findAll().forEach(p-> {
                 System.out.println("Liste of products : " + p);
             });
-            productRepository.save(new Product());
         };
     }
 }
