@@ -5,8 +5,14 @@ import com.layer.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+
+/**
+ * Toute les ressources néssiste une authentification.
+ */
 @SpringBootApplication
 public class Activity3Application {
 

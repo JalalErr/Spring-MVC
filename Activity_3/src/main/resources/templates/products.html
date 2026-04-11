@@ -1,31 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+    <title>Products</title>
 </head>
+
 <body>
+
+<div class="p-3" layout:fragment="content">
+    <div class="p-3" sec:authorize="hasRole('ADMIN')">
+        <a class="btn btn-primary" th:href="@{/admin/newProduct}">New Product</a>
+    </div>
     <h2>Test Products</h2>
-   <div class="p-3">
-       <table class="table">
-           <thead>
-           <tr>
-               <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
-           </tr>
-           </thead>
-           <tbody>
-           <tr th:each="p:${listproducts}">
-           <td th:text="${p.id}"></td>
-           <td th:text="${p.name}"></td>
-           <td th:text="${p.price}"></td>
-           <td th:text="${p.quantity}"></td>
-               <td>
-                   <a onclick="return confirm('Etes vous sur !')" class="btn btn-danger" th:href="@{/deletProduct(id=${p.id})}">Delete</a>
-               </td>
-           </tr>
-           </tbody>
-       </table>
-   </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="p:${listproducts}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.quantity}"></td>
+            <td sec:authorize="hasRole('ADMIN')"></td>
+            <td>
+                <form method="post" th:action="@{/admin/deletProduct(id=${p.id})}">
+                    <button type="submit" class="btn btn-danger">DELETE</button>                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>
